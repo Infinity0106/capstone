@@ -1,24 +1,78 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
-
-// You can import from local files
-import AssetExample from "./components/AssetExample";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // or any pure javascript modules available in npm
-import { Card } from "react-native-paper";
+import { Onboarding } from "./screens/Onboarding";
+import { Home } from "./screens/Home";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Splash } from "./screens/Splash";
+import { Profile } from "./screens/Profile";
 
-const TextInputExample = () => {
+SplashScreen.preventAutoHideAsync();
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    Markazi: require("./assets/Fonts/MarkaziText-Regular.ttf"),
+    Karla: require("./assets/Fonts/Karla-Regular.ttf"),
+  });
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
+  useEffect(() => {
+    (async () => {
+      try {
+        // await AsyncStorage.clear();
+        const isAuth = await AsyncStorage.getItem("isAuth");
+        setIsAuth(isAuth === "true");
+      } catch (e) {
+        setIsAuth(false);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  if (isLoading) {
+    return <Splash />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        Change code in the editor and watch it change on your phone! Save to get
-        a shareable url.
-      </Text>
-      <Card>
-        <AssetExample />
-      </Card>
-    </View>
+    <NavigationContainer onReady={onLayoutRootView}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {!isAuth ? (
+          <Stack.Screen
+            name="Onboarding"
+            component={Onboarding}
+            initialParams={{ setIsAuth }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            initialParams={{ setIsAuth }}
+            options={{}}
+          />
+        )}
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
@@ -38,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextInputExample;
+export default App;
