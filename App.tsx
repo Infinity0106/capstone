@@ -12,10 +12,11 @@ import { Home } from "./screens/Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Splash } from "./screens/Splash";
 import { Profile } from "./screens/Profile";
+import { Nav } from "./types";
 
 SplashScreen.preventAutoHideAsync();
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<Nav>();
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -63,14 +64,16 @@ const App = () => {
             initialParams={{ setIsAuth }}
           />
         ) : (
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            initialParams={{ setIsAuth }}
-            options={{}}
-          />
+          <>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              initialParams={{ setIsAuth }}
+              options={{}}
+            />
+          </>
         )}
-        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );
