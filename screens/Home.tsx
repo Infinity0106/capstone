@@ -112,35 +112,15 @@ export const Home: React.FC = () => {
         onRightPress={() => navigation.navigate("Profile")}
       />
       <Hero />
-      <View
-        style={{
-          backgroundColor: "#495E57",
-          paddingHorizontal: 16,
-          paddingBottom: 12,
-        }}
-      >
+      <View style={styles.searchContainer}>
         <TextInput
-          style={{
-            backgroundColor: "#EDEFEE",
-            padding: 10,
-            borderRadius: 10,
-            flexGrow: 0,
-            flexShrink: 1,
-          }}
+          style={styles.searchBar}
           value={searchText}
           onChangeText={setSearchText}
         />
       </View>
-      <Text style={{ fontWeight: "600", paddingHorizontal: 16 }}>
-        ORDER FOR DELIVERY
-      </Text>
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: 16,
-          paddingBottom: 12,
-        }}
-      >
+      <Text style={styles.orderTxt}>ORDER FOR DELIVERY</Text>
+      <View style={styles.buttonsContainer}>
         {/* Button filter */}
         {sections.map((section) => (
           <Chip
@@ -179,5 +159,23 @@ export const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  searchContainer: {
+    backgroundColor: "#495E57",
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+  },
+  orderTxt: { fontWeight: "600", paddingHorizontal: 16 },
+  searchBar: {
+    backgroundColor: "#EDEFEE",
+    padding: 10,
+    borderRadius: 10,
+    flexGrow: 0,
+    flexShrink: 1,
   },
 });
