@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" font-family="monospace" font-size="14">
+<rect width="760" height="330" fill="#fff" stroke="#999"/>
+<text x="20" y="32" font-size="20" font-weight="bold">#4471 · two causes, not one</text>
+<text x="20" y="56">owner: support desk · status: closed · reviewed: 2026-10-29</text>
+<text x="20" y="86">412 unique reports (427 rows, 15 repeats of the same id)</text>
+<text x="20" y="120" font-weight="bold">1. Parser reads month first: 379 reports · fixed</text>
+<text x="20" y="140">fix(dates): parse dd/mm for eu locales (desk, closed 05 Oct) · capstone#1</text>
+<text x="20" y="176" font-weight="bold">2. booking-v3 form hint: 33 reports · won't fix</text>
+<text x="20" y="196">booking-v3 form retired (desk, closed 05 Oct) · capstone#2</text>
+<text x="20" y="232">copper.studio, alder.physio, pale.harbour</text>
+<text x="20" y="300" fill="#06c">desk ref DR-81AV-2EEX</text>
+</svg>

@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · two causes, not one'
 owner: support desk
-status: draft
+status: closed
 reviewed: 2026-10-29
 signature: v1.eyJzdWIiOiIyMDI1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzMzI2NDMsImV4cCI6MTc5MzQxOTA0M30.Lcwuwv3krqo_JV_GK-xWcxCDCCv10hYJJ7ODnpa33zo
 ---
@@ -18,19 +18,19 @@ They are not one bug. The cause depends on the tenant, not on what intake tagged
 
 <CauseTable ticket={4471} />
 
-## 1. Parser reads month first: 379 reports
+## 1. Parser reads month first: 379 reports · fixed
 
 The shared parser reads every date month first. Day-first tenants (all 11 on file) get their
 dates flipped. This is what #4471 was filed for. It includes the 5 reports the desk read as a
 one-day move; by tenant they belong here. Ticket:
-[capstone#1](https://github.com/Infinity0106/capstone/issues/1).
+[capstone#1](https://github.com/Infinity0106/capstone/issues/1). Desk update, closed 05 Oct: fixed by `fix(dates): parse dd/mm for eu locales`.
 
-## 2. booking-v3 form hint: 33 reports
+## 2. booking-v3 form hint: 33 reports · won't fix
 
 `copper.studio`, `alder.physio` and `pale.harbour` run booking-v3, which prints `MM/DD/YYYY`
 under the date field. Their people type month first, as told, and the form reads it day first.
 Fixing the parser does not fix this. It has no ticket of its own on the desk; it was merged
-into #4471. Ticket: [capstone#2](https://github.com/Infinity0106/capstone/issues/2).
+into #4471. Ticket: [capstone#2](https://github.com/Infinity0106/capstone/issues/2). Desk update, closed 05 Oct: won't fix, the booking-v3 form is retired.
 
 <Callout>
 Intake's tag is a guess from the browser. It is wrong for 23 parser reports (tagged hint) and

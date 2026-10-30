@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><title>#4471 · two causes, not one</title></head>
 <body>
 <h1>#4471 · two causes, not one</h1>
-<p>owner: support desk · status: draft · reviewed: 2026-10-29</p>
+<p>owner: support desk · status: closed · reviewed: 2026-10-29</p>
 <p>#4471 holds <strong>412 unique reports</strong> (the export has 427 rows; 15 are repeats of the same id). They are not one bug. The cause depends on the tenant, not on what intake tagged.</p>
 <table border="1" cellpadding="4">
 <tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>ticket</th></tr>
@@ -10,8 +10,8 @@
 <tr><td>hint</td><td>33</td><td>parser ×15 · hint ×18</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket (capstone#2)</td></tr>
 </table>
 <h2>1. Parser reads month first: 379 reports</h2>
-<p>The shared parser reads every date month first. Day-first tenants (all 11 on file) get their dates flipped. Includes the 5 reports the desk read as a one-day move. Ticket: <a href="https://github.com/Infinity0106/capstone/issues/1">capstone#1</a>.</p>
+<p>The shared parser reads every date month first. Day-first tenants (all 11 on file) get their dates flipped. Includes the 5 reports the desk read as a one-day move. Ticket: <a href="https://github.com/Infinity0106/capstone/issues/1">capstone#1</a>. Desk update, closed 05 Oct: fixed by <code>fix(dates): parse dd/mm for eu locales</code>.</p>
 <h2>2. booking-v3 form hint: 33 reports</h2>
-<p><code>copper.studio</code>, <code>alder.physio</code> and <code>pale.harbour</code> run booking-v3, which prints <code>MM/DD/YYYY</code>. Their people type month first and the form reads it day first. Fixing the parser does not fix this. Ticket: <a href="https://github.com/Infinity0106/capstone/issues/2">capstone#2</a>.</p>
+<p><code>copper.studio</code>, <code>alder.physio</code> and <code>pale.harbour</code> run booking-v3, which prints <code>MM/DD/YYYY</code>. Their people type month first and the form reads it day first. Fixing the parser does not fix this. Ticket: <a href="https://github.com/Infinity0106/capstone/issues/2">capstone#2</a>. Desk update, closed 05 Oct: won't fix, the booking-v3 form is retired.</p>
 <p>desk ref <b>DR-81AV-2EEX</b></p>
 </body></html>
