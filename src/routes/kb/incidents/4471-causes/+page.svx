@@ -1,0 +1,40 @@
+---
+layout: runbook
+title: '#4471 · two causes, not one'
+owner: support desk
+status: draft
+reviewed: 2026-10-29
+signature: v1.eyJzdWIiOiIyMDI1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzMzI2NDMsImV4cCI6MTc5MzQxOTA0M30.Lcwuwv3krqo_JV_GK-xWcxCDCCv10hYJJ7ODnpa33zo
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+#4471 holds **412 unique reports** (the export has 427 rows; 15 are repeats of the same id).
+They are not one bug. The cause depends on the tenant, not on what intake tagged.
+
+<CauseTable ticket={4471} />
+
+## 1. Parser reads month first: 379 reports
+
+The shared parser reads every date month first. Day-first tenants (all 11 on file) get their
+dates flipped. This is what #4471 was filed for. It includes the 5 reports the desk read as a
+one-day move; by tenant they belong here. Ticket:
+[capstone#1](https://github.com/Infinity0106/capstone/issues/1).
+
+## 2. booking-v3 form hint: 33 reports
+
+`copper.studio`, `alder.physio` and `pale.harbour` run booking-v3, which prints `MM/DD/YYYY`
+under the date field. Their people type month first, as told, and the form reads it day first.
+Fixing the parser does not fix this. It has no ticket of its own on the desk; it was merged
+into #4471. Ticket: [capstone#2](https://github.com/Infinity0106/capstone/issues/2).
+
+<Callout>
+Intake's tag is a guess from the browser. It is wrong for 23 parser reports (tagged hint) and
+15 hint reports (tagged parser). Count by tenant and channel.
+</Callout>
+
+<RenderStamp {signature} />
